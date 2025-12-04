@@ -16,13 +16,23 @@ const geist = Geist({
   variable: "--font-geist-sans",
 });
 
+type RootLayoutProps = {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+};
+
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  modal,
+}: Readonly<RootLayoutProps>) {
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          {children}
+          {modal}
+          <div id="modal-root" />
+        </TRPCReactProvider>
       </body>
     </html>
   );

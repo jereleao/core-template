@@ -5,6 +5,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
+import { auth } from "~/server/auth";
 import { posts } from "~/server/db/schema";
 
 export const postRouter = createTRPCRouter({
@@ -16,12 +17,11 @@ export const postRouter = createTRPCRouter({
       };
     }),
 
-  posts: publicProcedure
-    .query(async ({ ctx }) => {
-      const posts = await ctx.db.query.posts.findMany();
+  posts: publicProcedure.query(async ({ ctx }) => {
+    const posts = await ctx.db.query.posts.findMany();
 
-      return posts ?? null;
-    }),
+    return posts ?? null;
+  }),
 
   create: protectedProcedure
     .input(z.object({ name: z.string().min(1) }))
@@ -39,6 +39,25 @@ export const postRouter = createTRPCRouter({
 
     return post ?? null;
   }),
+
+  getById: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ ctx, input }) => {
+      const session = await auth();
+      if (!session?.user?.id) throw new Error("Unauthorized");
+
+      const post = await ctx.db.query.posts.findFirst({
+        where: (post, { eq }) => eq(post.id, input.id),
+        orderBy: (post, { desc }) => [desc(post.createdAt)],
+      });
+      if (!post) throw new Error("not Found");
+
+      console.log(post, session)
+
+      if (post.createdById != session.user.id) throw new Error("Unautorized");
+
+      return post ?? null;
+    }),
 
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";

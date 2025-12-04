@@ -12,9 +12,9 @@ export default async function Home() {
     void api.post.getLatest.prefetch();
   }
 
-  const post = await api.post.posts();
+  const posts = await api.post.posts();
 
-  console.log(post);
+  console.log(posts);
 
   return (
     <HydrateClient>
@@ -42,6 +42,12 @@ export default async function Home() {
           </div>
 
           {session?.user && <LatestPost />}
+
+          {posts.map((p) => (
+            <Link key={p.id} href={`/img/${p.id}`}>
+              <div className="p-2">{p.name}</div>
+            </Link>
+          ))}
         </div>
       </main>
     </HydrateClient>
