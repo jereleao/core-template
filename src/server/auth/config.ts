@@ -1,6 +1,7 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google"
+import NodemailerProvider from "next-auth/providers/nodemailer";
 
 import { db } from "~/server/db";
 import {
@@ -38,7 +39,27 @@ declare module "next-auth" {
  */
 export const authConfig = {
   providers: [
-    GoogleProvider
+    GoogleProvider,
+    NodemailerProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      // sendVerificationRequest({
+      //   identifier: email,
+      //   url,
+      //   provider: { server, from },
+      // }) {
+      //   // your function
+      //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      //   console.log({ email, url, server, from });
+      // },
+      from: process.env.EMAIL_FROM,
+    }),
   ],
   adapter: DrizzleAdapter(db, {
     usersTable: users,
