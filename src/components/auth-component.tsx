@@ -21,12 +21,14 @@ export function SignOut(
     handleLogout: () => void;
   },
 ) {
+  const { handleLogout, ...buttonProps } = props;
+
   return (
     <Button
       variant="ghost"
       className="w-full p-0"
-      onClick={props.handleLogout}
-      {...props}
+      onClick={handleLogout}
+      {...buttonProps}
     >
       Logout
     </Button>

@@ -9,9 +9,11 @@ function NavigationMenu({
   className,
   children,
   viewport = true,
+  top = false,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Root> & {
   viewport?: boolean;
+  top?: boolean;
 }) {
   return (
     <NavigationMenuPrimitive.Root
@@ -24,7 +26,7 @@ function NavigationMenu({
       {...props}
     >
       {children}
-      {viewport && <NavigationMenuViewport />}
+      {viewport && <NavigationMenuViewport top={top} />}
     </NavigationMenuPrimitive.Root>
   );
 }
@@ -65,19 +67,24 @@ const navigationMenuTriggerStyle = cva(
 function NavigationMenuTrigger({
   className,
   children,
+  showChevron = false,
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger>) {
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger> & {
+  showChevron?: boolean;
+}) {
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
       className={cn(navigationMenuTriggerStyle(), "group", className)}
       {...props}
     >
-      {children}{" "}
-      <ChevronDownIcon
-        className="relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
-        aria-hidden="true"
-      />
+      {children}
+      {showChevron && (
+        <ChevronDownIcon
+          className="relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
+          aria-hidden="true"
+        />
+      )}
     </NavigationMenuPrimitive.Trigger>
   );
 }
@@ -100,18 +107,23 @@ function NavigationMenuContent({
 
 function NavigationMenuViewport({
   className,
+  top = false,
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Viewport>) {
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Viewport> & {
+  top?: boolean;
+}) {
   return (
     <div
       className={cn(
         "absolute top-full left-0 isolate z-50 flex justify-center",
+        top && "-top-2",
       )}
     >
       <NavigationMenuPrimitive.Viewport
         data-slot="navigation-menu-viewport"
         className={cn(
           "origin-top-center bg-popover text-popover-foreground ring-foreground/10 data-open:animate-in data-open:zoom-in-90 data-closed:animate-out data-closed:zoom-out-90 relative mt-1.5 h-(--radix-navigation-menu-viewport-height) w-full overflow-hidden rounded-lg shadow ring-1 duration-100 md:w-(--radix-navigation-menu-viewport-width)",
+          top && "-mt-(--radix-navigation-menu-viewport-height)",
           className,
         )}
         {...props}
