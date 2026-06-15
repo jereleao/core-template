@@ -1,4 +1,3 @@
-import { relations } from "drizzle-orm";
 import { index, pgTableCreator, primaryKey } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 
@@ -48,10 +47,6 @@ export const users = createTable("user", (d) => ({
   image: d.varchar({ length: 255 }),
 }));
 
-export const usersRelations = relations(users, ({ many }) => ({
-  accounts: many(accounts),
-}));
-
 export const accounts = createTable(
   "account",
   (d) => ({
@@ -76,10 +71,6 @@ export const accounts = createTable(
   ],
 );
 
-export const accountsRelations = relations(accounts, ({ one }) => ({
-  user: one(users, { fields: [accounts.userId], references: [users.id] }),
-}));
-
 export const sessions = createTable(
   "session",
   (d) => ({
@@ -93,10 +84,6 @@ export const sessions = createTable(
   (t) => [index("t_user_id_idx").on(t.userId)],
 );
 
-export const sessionsRelations = relations(sessions, ({ one }) => ({
-  user: one(users, { fields: [sessions.userId], references: [users.id] }),
-}));
-
 export const verificationTokens = createTable(
   "verification_token",
   (d) => ({
@@ -105,4 +92,28 @@ export const verificationTokens = createTable(
     expires: d.timestamp({ mode: "date", withTimezone: true }).notNull(),
   }),
   (t) => [primaryKey({ columns: [t.identifier, t.token] })],
+);
+
+export const authenticators = createTable(
+  "authenticator",
+  (d) => ({
+    credentialID: d.text("credentialID").notNull().unique(),
+    userId: d
+      .text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    providerAccountId: d.text("providerAccountId").notNull(),
+    credentialPublicKey: d.text("credentialPublicKey").notNull(),
+    counter: d.integer("counter").notNull(),
+    credentialDeviceType: d.text("credentialDeviceType").notNull(),
+    credentialBackedUp: d.boolean("credentialBackedUp").notNull(),
+    transports: d.text("transports"),
+  }),
+  (t) => [
+    {
+      compositePK: primaryKey({
+        columns: [t.userId, t.credentialID],
+      }),
+    },
+  ],
 );

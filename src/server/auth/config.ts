@@ -1,11 +1,12 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
-import GoogleProvider from "next-auth/providers/google"
+import GoogleProvider from "next-auth/providers/google";
 import NodemailerProvider from "next-auth/providers/nodemailer";
 
 import { db } from "~/server/db";
 import {
   accounts,
+  authenticators,
   sessions,
   users,
   verificationTokens,
@@ -66,13 +67,17 @@ export const authConfig = {
     accountsTable: accounts,
     sessionsTable: sessions,
     verificationTokensTable: verificationTokens,
+    authenticatorsTable: authenticators,
   }),
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
     session: ({ session, user }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
+        // id: user.id,
       },
     }),
   },
