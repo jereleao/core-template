@@ -36,12 +36,26 @@ export default function RootLayout({
     >
       <body>
         <TRPCReactProvider>
+          {/* <ThemeProvider
+            attribute="class"
+            defaultTheme={themeToUse}
+            enableSystem
+            disableTransitionOnChange
+          > */}
+          {/* <NextIntlClientProvider> */}
+          {/* <ClientProvider> */}
           <SessionProvider>
+            {/* <TooltipProvider> */}
             {children}
             {modal}
             <div id="modal-root" />
+            {/* </TooltipProvider> */}
           </SessionProvider>
+          {/* </ClientProvider> */}
+          {/* </NextIntlClientProvider> */}
+          {/* </ThemeProvider> */}
         </TRPCReactProvider>
+        {/* <Toaster /> */}
       </body>
     </html>
   );

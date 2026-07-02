@@ -11,7 +11,7 @@ export function SignIn({
 }: { provider?: string } & React.ComponentPropsWithRef<typeof Button>) {
   return (
     <Button {...props}>
-      <Link href="/auth/login">Login</Link>
+      <Link href="/login">Login</Link>
     </Button>
   );
 }
