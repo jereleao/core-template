@@ -25,14 +25,12 @@ export default async function ModulesPagesLayout({
   children,
 }: IModulesPagesLayoutProps) {
   return (
-    <main className="bg-background flex h-screen flex-row antialiased">
-      <div className="flex h-full min-h-0 w-full flex-col justify-between overflow-hidden">
-        <Header />
-        <ScrollArea className="mx-auto min-h-0 w-full max-w-3xl flex-1 px-4 py-4 sm:px-6 md:py-6">
-          <main className="min-h-0">{children}</main>
-        </ScrollArea>
-        <Footer />
-      </div>
-    </main>
+    <div className="m-0 flex h-dvh flex-col antialiased">
+      <Header />
+      <ScrollArea className="mx-auto min-h-0 w-full max-w-3xl flex-1 px-4 py-4 sm:px-6 md:py-6">
+        <main className="min-h-0">{children}</main>
+      </ScrollArea>
+      <Footer />
+    </div>
   );
 }

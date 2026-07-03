@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-export function usePasskeyAvailable(): boolean | null {
-  const [available, setAvailable] = useState<boolean | null>(null);
+export function usePasskeyAvailable(): boolean {
+  const [available, setAvailable] = useState<boolean>(false);
 
   const check = useCallback(async () => {
     try {
@@ -13,7 +13,7 @@ export function usePasskeyAvailable(): boolean | null {
     } catch {
       setAvailable(false);
     }
-  },[]);
+  }, []);
 
   useEffect(() => {
     void check();
