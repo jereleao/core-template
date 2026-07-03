@@ -1,4 +1,4 @@
-import { Modal } from "./modal";
+import { Modal } from "../../modal";
 import PostDetais from "~/app/_components/post-details";
 
 export default async function PostModal(props: { params: { id: string } }) {
