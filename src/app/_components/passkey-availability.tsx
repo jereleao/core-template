@@ -36,7 +36,7 @@ export default function PasskeyAvailability() {
 
   const [passkeyDialogOpen, setPasskeyDialogOpen] = useState<boolean>(false);
 
-  const [isRegistering, handleRegisterPasskey] = useWebauthnRegister(enabled);
+  const [isRegistering, registerPasskey] = useWebauthnRegister(enabled);
 
   const { mutate: disablePasskey, isPending: isPendintMutation } =
     api.user.disablePasskey.useMutation({
@@ -46,6 +46,12 @@ export default function PasskeyAvailability() {
     });
 
   const handleDisablePasskey = () => disablePasskey();
+
+  const handleRegisterPasskey = async () => {
+    await registerPasskey();
+
+    setPasskeyDialogOpen(false);
+  };
 
   return (
     <Dialog open={passkeyDialogOpen} onOpenChange={setPasskeyDialogOpen}>

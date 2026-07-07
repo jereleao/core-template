@@ -134,7 +134,7 @@ export const authConfig = {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, profile, session, trigger }) {
       // console.log("jwt", { token, user, account, profile, session, trigger });
 
       const userData = await db.query.users.findFirst({
@@ -151,7 +151,7 @@ export const authConfig = {
 
       return token;
     },
-    session({ session, token }) {
+    session({ session, token, user, newSession, trigger }) {
       // console.log("session", { session, token, user, newSession, trigger });
       return {
         ...session,
