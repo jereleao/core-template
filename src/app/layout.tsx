@@ -6,6 +6,7 @@ import { Geist, Roboto } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
 import { cn } from "~/utils";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "~/components/ui/sonner";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -55,7 +56,7 @@ export default function RootLayout({
           {/* </NextIntlClientProvider> */}
           {/* </ThemeProvider> */}
         </TRPCReactProvider>
-        {/* <Toaster /> */}
+        <Toaster />
       </body>
     </html>
   );

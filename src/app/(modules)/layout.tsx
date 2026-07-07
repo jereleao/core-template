@@ -7,6 +7,7 @@
 import Footer from "~/components/footer";
 import Header from "~/components/header";
 import { ScrollArea } from "~/components/ui/scroll-area";
+import { env } from "~/env";
 
 type IModulesPagesLayoutProps = Readonly<{
   children: React.ReactNode;
@@ -16,7 +17,7 @@ export async function generateMetadata() {
   //   const t = await getTranslations("Metadata");
 
   return {
-    title: process.env.APPLICATION_NAME,
+    title: env.APPLICATION_NAME,
     description: "A application with Auth.js and 2FA support",
   };
 }

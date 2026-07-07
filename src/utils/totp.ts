@@ -1,9 +1,11 @@
+import { isoBase64URL } from "@simplewebauthn/server/helpers";
 import { generateSecret, generateURI, verify } from "otplib";
 import QRCode from "qrcode";
+import { env } from "~/env";
 
 export const generateTwoFactorSecret = (userEmail: string) => {
   const secret = generateSecret();
-  const serviceName = process.env.APPLICATION_NAME || "Craft Application";
+  const serviceName = env.APPLICATION_NAME;
 
   const otpAuthUrl = generateURI({
     issuer: serviceName,

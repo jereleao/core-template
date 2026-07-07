@@ -1,4 +1,9 @@
-import { index, pgTableCreator, primaryKey } from "drizzle-orm/pg-core";
+import {
+  customType,
+  index,
+  pgTableCreator,
+  primaryKey,
+} from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 
 /**
@@ -45,6 +50,7 @@ export const users = createTable("user", (d) => ({
     })
     .$defaultFn(() => /* @__PURE__ */ new Date()),
   image: d.varchar({ length: 255 }),
+  disablePasskey: d.boolean(),
 }));
 
 export const accounts = createTable(
@@ -94,20 +100,39 @@ export const verificationTokens = createTable(
   (t) => [primaryKey({ columns: [t.identifier, t.token] })],
 );
 
-export const authenticators = createTable(
-  "authenticator",
+const bytea = customType<{ data: Uint8Array; driverData: Buffer }>({
+  dataType() {
+    return "bytea";
+  },
+  toDriver(value) {
+    // Convert Uint8Array to Node.js Buffer for the driver
+    return Buffer.from(value);
+  },
+  fromDriver(value) {
+    // Convert database Buffer back to Uint8Array
+    return new Uint8Array(value);
+  },
+});
+
+export const storedCredentials = createTable(
+  "credentials",
   (d) => ({
-    credentialID: d.text("credentialID").notNull().unique(),
+    credentialID: bytea("credentialID").notNull().unique(),
     userId: d
       .text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    providerAccountId: d.text("providerAccountId").notNull(),
-    credentialPublicKey: d.text("credentialPublicKey").notNull(),
-    counter: d.integer("counter").notNull(),
-    credentialDeviceType: d.text("credentialDeviceType").notNull(),
-    credentialBackedUp: d.boolean("credentialBackedUp").notNull(),
-    transports: d.text("transports"),
+    providerAccountId: d.text(),
+    credentialPublicKey: d.text().notNull(),
+    counter: d.integer().notNull(),
+    credentialDeviceType: d.text().notNull(), // 'singleDevice' | 'multiDevice'
+    credentialBackedUp: d.boolean().notNull(),
+    transports: d.text(),
+    authenticatorAttachment: d.text().notNull().default("undefined"), // "platform" | "cross-platform" | "undefined"
+    browser: d.text(),
+    os: d.text(),
+    platform: d.text(),
+    lastUsed: d.bigint("last_used", { mode: "number" }), // A number representing the timestamp, in milliseconds
   }),
   (t) => [
     {

@@ -6,18 +6,25 @@ import { Button } from "~/components/ui/button";
 import { GoogleIcon } from "~/components/icons";
 import { Input } from "~/components/ui/input";
 import { Field, FieldLabel } from "~/components/ui/field";
+import { useWebauthnAssert } from "~/hooks/use-webauthn-assert";
+import ConditionGuard from "~/components/condition-guard";
+import { FingerprintPattern, LoaderCircle } from "lucide-react";
+import { usePasskeyAvailable } from "~/hooks/use-passkey-available";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [emailSent, setEmailSent] = useState(false);
 
+  const passkeyAvailable = usePasskeyAvailable();
+
   const [isPending, startTransition] = useTransition();
+
+  const [isAsserting, manuallyStartAuthentication] = useWebauthnAssert();
 
   const handleSendEmail = (email: string) =>
     startTransition(async () => {
       await signIn("nodemailer", {
         email,
-        callbackUrl: "/",
         redirect: false,
       });
       setEmailSent(true);
@@ -31,9 +38,6 @@ export default function LoginForm() {
     }
 
     handleSendEmail(email);
-
-    // await signIn("nodemailer", { email, callbackUrl: "/", redirect: false });
-    // setEmailSent(true);
   };
 
   return (
@@ -44,7 +48,7 @@ export default function LoginForm() {
       </p>
 
       <div className="mt-10 flex flex-col gap-4">
-        <div className="flex items-center justify-center">
+        <div className="flex justify-evenly">
           <Button
             variant="outline"
             className="h-10 max-w-100 rounded-full"
@@ -53,6 +57,22 @@ export default function LoginForm() {
             <GoogleIcon className="mr-2" />
             <span>Sign in with Google</span>
           </Button>
+          <ConditionGuard condition={passkeyAvailable}>
+            <Button
+              variant="outline"
+              className="h-10 max-w-100 rounded-full"
+              onClick={manuallyStartAuthentication}
+              disabled={isAsserting}
+            >
+              <ConditionGuard
+                condition={!isAsserting}
+                fallback={<LoaderCircle className="mr-2 animate-spin" />}
+              >
+                <FingerprintPattern className="mr-2" />
+              </ConditionGuard>
+              <span>Sign in with Passkey</span>
+            </Button>
+          </ConditionGuard>
         </div>
 
         <div className="border-border text-muted-foreground relative w-full border-t py-4 text-center text-sm">
@@ -71,6 +91,7 @@ export default function LoginForm() {
               className="py-6"
               disabled={isPending}
               required
+              autoComplete="email webauthn"
             />
           </Field>
           <Button type="submit" className="py-6" disabled={isPending}>
