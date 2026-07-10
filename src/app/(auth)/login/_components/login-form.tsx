@@ -26,6 +26,7 @@ export default function LoginForm() {
       await signIn("nodemailer", {
         email,
         redirect: false,
+        callbackUrl: "/",
       });
       setEmailSent(true);
     });
