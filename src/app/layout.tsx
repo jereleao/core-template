@@ -6,6 +6,7 @@ import { Geist, Roboto } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
 import { cn } from "~/utils";
 import { SessionProvider } from "next-auth/react";
+import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "~/components/ui/sonner";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
@@ -43,17 +44,17 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           > */}
-          {/* <NextIntlClientProvider> */}
-          {/* <ClientProvider> */}
-          <SessionProvider>
-            {/* <TooltipProvider> */}
-            {children}
-            {modal}
-            <div id="modal-root" />
-            {/* </TooltipProvider> */}
-          </SessionProvider>
-          {/* </ClientProvider> */}
-          {/* </NextIntlClientProvider> */}
+          <NextIntlClientProvider>
+            {/* <ClientProvider> */}
+            <SessionProvider>
+              {/* <TooltipProvider> */}
+              {children}
+              {modal}
+              <div id="modal-root" />
+              {/* </TooltipProvider> */}
+            </SessionProvider>
+            {/* </ClientProvider> */}
+          </NextIntlClientProvider>
           {/* </ThemeProvider> */}
         </TRPCReactProvider>
         <Toaster />

@@ -1,8 +1,4 @@
-// import { getTranslations } from "next-intl/server";
-// import { Suspense } from "react";
-// import { LoadingIcon } from "@/components/icons";
-// import PageHeader from "@/components/page-header";
-// import SideNav from "@/components/sidenav";
+import { getTranslations } from "next-intl/server";
 
 import Footer from "~/components/footer";
 import Header from "~/components/header";
@@ -14,11 +10,11 @@ type IModulesPagesLayoutProps = Readonly<{
 }>;
 
 export async function generateMetadata() {
-  //   const t = await getTranslations("Metadata");
+  const t = await getTranslations("Metadata");
 
   return {
-    title: env.APPLICATION_NAME,
-    description: "A application with Auth.js and 2FA support",
+    title: t("title"),
+    description: t("description"),
   };
 }
 

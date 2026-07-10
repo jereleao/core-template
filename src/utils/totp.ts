@@ -1,4 +1,3 @@
-import { isoBase64URL } from "@simplewebauthn/server/helpers";
 import { generateSecret, generateURI, verify } from "otplib";
 import QRCode from "qrcode";
 import { env } from "~/env";

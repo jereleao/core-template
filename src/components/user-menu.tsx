@@ -20,11 +20,25 @@ import UserAvatar from "./user-avatar";
 import ConditionGuard from "./condition-guard";
 import { usePasskeyAvailable } from "~/hooks/use-passkey-available";
 import { useWebauthnRegister } from "~/hooks/use-webauthn-register";
+import { localesOptions } from "~/i18n/locale-options";
+import { useLocale, useTranslations } from "next-intl";
+import type { Locale } from "next-intl";
+import { changeLocaleAction } from "~/i18n/locale-action";
+import Link from "next/link";
 
 export default function UserMenu({ session }: { session: Session }) {
   const [isLogingOut, startLogout] = useTransition();
 
   const handleLogout = () => startLogout(() => logoutAction());
+
+  const t = useTranslations("UserMenu");
+
+  const locale = useLocale();
+
+  const onSelectLocale = async (selectedLocale: Locale) => {
+    if (selectedLocale === locale) return;
+    await changeLocaleAction(selectedLocale);
+  };
 
   console.log("Rendering UserMenu with session:", session);
 
@@ -55,6 +69,25 @@ export default function UserMenu({ session }: { session: Session }) {
               </p>
             </div>
           </DropdownMenuLabel>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              {t("language.label")}
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                {localesOptions.map((localeOption) => (
+                  <DropdownMenuItem
+                    onSelect={() => onSelectLocale(localeOption)}
+                  >
+                    {t("language.locale", { locale: localeOption })}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuItem>
+            <Link href="./account">{t("account")}</Link>
+          </DropdownMenuItem>
           <ConditionGuard condition={canAuthenticateWithPasskey}>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>Authentication</DropdownMenuSubTrigger>

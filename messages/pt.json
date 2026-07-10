@@ -1,0 +1,18 @@
+{
+    "Metadata": {
+        "title": "Demo App",
+        "description": "Uma aplicação com Auth.js e suporte 2FA"
+    },
+    "HomePage": {
+        "title": "Olá Mundo!"
+    },
+    "UserMenu": {
+        "login": "Login",
+        "account": "Minha Conta",
+        "language": {
+            "label": "Alterar idioma",
+            "locale": "{locale, select, pt {🇵🇹 Português} en {🇺🇸 Inglês} other {Unknown}}"
+        },
+        "logout": "Logout"
+    }
+}

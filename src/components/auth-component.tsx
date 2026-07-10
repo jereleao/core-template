@@ -4,14 +4,16 @@ import { Button } from "~/components/ui/button";
 import Link from "next/link";
 import { logoutAction } from "~/server/auth/actions";
 import { useEffect, useTransition } from "react";
+import { useTranslations } from "next-intl";
 
 export function SignIn({
   provider,
   ...props
 }: { provider?: string } & React.ComponentPropsWithRef<typeof Button>) {
+  const t = useTranslations("UserMenu");
   return (
     <Button {...props}>
-      <Link href="/login">Login</Link>
+      <Link href="/login">{t("login")}</Link>
     </Button>
   );
 }
@@ -23,6 +25,8 @@ export function SignOut(
 ) {
   const { handleLogout, ...buttonProps } = props;
 
+  const t = useTranslations("UserMenu");
+
   return (
     <Button
       variant="ghost"
@@ -30,7 +34,7 @@ export function SignOut(
       onClick={handleLogout}
       {...buttonProps}
     >
-      Logout
+      {t("logout")}
     </Button>
   );
 }

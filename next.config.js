@@ -3,6 +3,7 @@
  * for Docker builds.
  */
 import "./src/env.js";
+import createNextIntlPlugin from 'next-intl/plugin';
 
 /** @type {import("next").NextConfig} */
 const coreConfig = {
@@ -48,4 +49,6 @@ const configWithSentry = withSentryConfig(coreConfig, {
   automaticVercelMonitors: true,
 })
 
-export default configWithSentry;
+const withNextIntl = createNextIntlPlugin();
+
+export default withNextIntl(configWithSentry);
