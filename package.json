@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.2",
+    "@hookform/resolvers": "^5.4.0",
     "@sentry/nextjs": "^10.63.0",
     "@simplewebauthn/browser": "9.0.1",
     "@simplewebauthn/server": "9.0.3",
@@ -45,6 +46,7 @@
     "radix-ui": "^1.6.1",
     "react": "19.2.7",
     "react-dom": "19.2.7",
+    "react-hook-form": "^7.81.0",
     "require-in-the-middle": "^8.0.1",
     "server-only": "^0.0.1",
     "shadcn": "^4.13.0",

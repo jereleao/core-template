@@ -3,6 +3,9 @@
         "title": "Demo App",
         "description": "A application with Auth.js and 2FA support"
     },
+    "Commom": {
+        "loading": "Loading"
+    },
     "HomePage": {
         "title": "Hello world!"
     },
