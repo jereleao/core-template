@@ -52,8 +52,6 @@ export const postRouter = createTRPCRouter({
       });
       if (!post) throw new Error("not Found");
 
-      console.log(post, session)
-
       if (post.createdById != session.user.id) throw new Error("Unautorized");
 
       return post ?? null;

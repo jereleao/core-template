@@ -1,0 +1,24 @@
+{
+    "Metadata": {
+        "title": "Demo App",
+        "description": "Uma aplicação com Auth.js e suporte 2FA"
+    },
+    "Commom": {
+        "loading": "Carregando"
+    },
+    "HomePage": {
+        "title": "Página Inicial"
+    },
+    "Dashboard": {
+        "title": "Painel"
+    },
+    "UserMenu": {
+        "login": "Login",
+        "account": "Minha Conta",
+        "language": {
+            "label": "Alterar idioma",
+            "locale": "{locale, select, pt {🇵🇹 Português} en {🇺🇸 Inglês} other {Unknown}}"
+        },
+        "logout": "Logout"
+    }
+}

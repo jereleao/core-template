@@ -1,9 +1,15 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Roboto } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { cn } from "~/utils";
+import { SessionProvider } from "next-auth/react";
+import { NextIntlClientProvider } from "next-intl";
+import { Toaster } from "~/components/ui/sonner";
+
+const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -26,13 +32,32 @@ export default function RootLayout({
   modal,
 }: Readonly<RootLayoutProps>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
+    <html
+      lang="en"
+      className={cn(geist.variable, "font-sans", roboto.variable)}
+    >
       <body>
         <TRPCReactProvider>
-          {children}
-          {modal}
-          <div id="modal-root" />
+          {/* <ThemeProvider
+            attribute="class"
+            defaultTheme={themeToUse}
+            enableSystem
+            disableTransitionOnChange
+          > */}
+          <NextIntlClientProvider>
+            {/* <ClientProvider> */}
+            <SessionProvider>
+              {/* <TooltipProvider> */}
+              {children}
+              {modal}
+              <div id="modal-root" />
+              {/* </TooltipProvider> */}
+            </SessionProvider>
+            {/* </ClientProvider> */}
+          </NextIntlClientProvider>
+          {/* </ThemeProvider> */}
         </TRPCReactProvider>
+        <Toaster />
       </body>
     </html>
   );
