@@ -12,6 +12,8 @@ export function useWebauthnRegister(enabled: boolean = true) {
       enabled ? undefined : skipToken,
     );
 
+  const utils = api.useUtils();
+
   const { mutateAsync: registerCredential, isPending: isPendingMutation } =
     api.webauthn.makeCredential.useMutation({
       onError: (error) => {
@@ -23,6 +25,7 @@ export function useWebauthnRegister(enabled: boolean = true) {
         );
       },
       onSuccess: () => {
+        utils.user.existingKeys.invalidate();
         toast.success("Passkey registration successful.");
       },
     });

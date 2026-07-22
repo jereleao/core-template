@@ -9,6 +9,8 @@ import {
 } from "~/server/api/trpc";
 import { storedCredentials } from "~/server/db/schema";
 import { rpId } from "~/server/auth/config";
+import { getNow } from "~/utils";
+import { eq } from "drizzle-orm";
 
 export const webauthnRouter = createTRPCRouter({
   makeCredentialOptions: protectedProcedure.query(async ({ ctx }) => {
@@ -135,6 +137,7 @@ export const webauthnRouter = createTRPCRouter({
         browser: credential.useragent?.browser,
         os: credential.useragent?.os,
         platform: credential.useragent?.platform,
+        createdAt: getNow(),
       };
 
       await ctx.db.insert(storedCredentials).values(newCredential);
@@ -152,4 +155,30 @@ export const webauthnRouter = createTRPCRouter({
       publicKey,
     };
   }),
+
+  deleteCredential: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().min(1),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session?.user.id;
+
+      if (!userId) throw new Error("Unauthorized");
+
+      const rawId = isoBase64URL.toBuffer(input.id);
+
+      const storedCred = await ctx.db.query.storedCredentials.findFirst({
+        where: (key, { eq }) => eq(key.credentialID, rawId),
+      });
+
+      if (!storedCred) throw new Error("Not found");
+
+      if (storedCred.userId !== userId) throw new Error("Unauthorized");
+
+      await ctx.db
+        .delete(storedCredentials)
+        .where(eq(storedCredentials.credentialID, rawId));
+    }),
 });

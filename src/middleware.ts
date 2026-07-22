@@ -26,14 +26,6 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
-    console.log(
-      "Requested path:",
-      url.pathname,
-      "is protected route:",
-      isProtectedRoute,
-    );
-    console.log("User token:", token);
-
     if (!token) {
       url.pathname = "/login";
       return NextResponse.redirect(url);

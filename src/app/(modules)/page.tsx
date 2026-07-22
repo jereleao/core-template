@@ -45,13 +45,13 @@ export default async function Home() {
           </div>
         </div> */}
 
-      <div className="flex w-full flex-col items-start gap-2">
+      {/* <div className="flex w-full flex-col items-start gap-2">
         {new Array(100).fill(0).map((_, i) => (
           <p key={i} className="text-2xl">
             {i + 1}. This is a placeholder element.
           </p>
         ))}
-      </div>
+      </div> */}
       {/* 
         {session?.user && <LatestPost />}
 

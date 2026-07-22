@@ -7,7 +7,10 @@
         "loading": "Carregando"
     },
     "HomePage": {
-        "title": "Olá Mundo!"
+        "title": "Página Inicial"
+    },
+    "Dashboard": {
+        "title": "Painel"
     },
     "UserMenu": {
         "login": "Login",

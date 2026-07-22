@@ -19,22 +19,16 @@ export default function UserAvatar({
 }: UserAvatarProps) {
   return (
     <Avatar className={cn("size-8", className)}>
-      <ConditionGuard
-        condition={!!image}
-        fallback={
-          <AvatarFallback>
-            <ConditionGuard condition={!!name} fallback={<UserRound />}>
-              {name
-                ?.split(" ")
-                .map((n) => n[0])
-                .join("")
-                .toUpperCase()}
-            </ConditionGuard>
-          </AvatarFallback>
-        }
-      >
-        <AvatarImage src={image!} alt={name ?? ""} />
-      </ConditionGuard>
+      <AvatarImage src={image!} alt={name ?? ""} />
+      <AvatarFallback>
+        <ConditionGuard condition={!!name} fallback={<UserRound />}>
+          {name
+            ?.split(" ")
+            .map((n) => n[0])
+            .join("")
+            .toUpperCase()}
+        </ConditionGuard>
+      </AvatarFallback>
     </Avatar>
   );
 }

@@ -42,6 +42,7 @@ export const users = createTable("user", (d) => ({
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   name: d.varchar({ length: 255 }),
+  bio: d.varchar({ length: 255 }),
   email: d.varchar({ length: 255 }).notNull(),
   emailVerified: d
     .timestamp({
@@ -133,6 +134,7 @@ export const storedCredentials = createTable(
     os: d.text(),
     platform: d.text(),
     lastUsed: d.bigint("last_used", { mode: "number" }), // A number representing the timestamp, in milliseconds
+    createdAt: d.bigint("created_at", { mode: "number" }), // A number representing the timestamp, in milliseconds
   }),
   (t) => [
     {

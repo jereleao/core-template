@@ -10,7 +10,7 @@ export default function Header() {
         <CustomLink href="/">
           <Button
             variant="ghost"
-            className="border-foreground h-8 w-8 rounded-full border p-0"
+            className="border-foreground size-8 rounded-full border p-0"
           >
             <Home className="min-w-8" />
           </Button>

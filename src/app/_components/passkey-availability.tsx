@@ -13,11 +13,13 @@ import {
 } from "~/components/ui/dialog";
 import { PASSKEY_PROVIDER_ID } from "~/env";
 import { usePasskeyAvailable } from "~/hooks/use-passkey-available";
+import { usePasskeyPromptDismissed } from "~/hooks/use-passkey-prompt-dismissed";
 import { useWebauthnRegister } from "~/hooks/use-webauthn-register";
 import { api } from "~/trpc/react";
 
 export default function PasskeyAvailability() {
   const passkeyAvailable = usePasskeyAvailable();
+  const { isDismissed, dismiss } = usePasskeyPromptDismissed();
 
   const session = useSession();
 
@@ -31,8 +33,10 @@ export default function PasskeyAvailability() {
     session.data?.provider !== PASSKEY_PROVIDER_ID;
 
   useEffect(() => {
-    if (enabled) setPasskeyDialogOpen(true);
-  }, [enabled]);
+    if (enabled && !isDismissed) {
+      setPasskeyDialogOpen(true);
+    }
+  }, [enabled, isDismissed]);
 
   const [passkeyDialogOpen, setPasskeyDialogOpen] = useState<boolean>(false);
 
@@ -45,11 +49,15 @@ export default function PasskeyAvailability() {
       },
     });
 
-  const handleDisablePasskey = () => disablePasskey();
+  const handleDisablePasskey = () => {
+    dismiss();
+    disablePasskey();
+  };
 
   const handleRegisterPasskey = async () => {
     await registerPasskey();
 
+    dismiss();
     setPasskeyDialogOpen(false);
   };
 

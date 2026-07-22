@@ -1,11 +1,20 @@
+import type { inferRouterOutputs } from "@trpc/server";
 import { eq } from "drizzle-orm";
-import { z } from "zod";
+import { string, z } from "zod";
 import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
 import { users } from "~/server/db/schema";
+
+type UserOutputs = inferRouterOutputs<typeof userRouter>;
+
+export type ExistingKey = UserOutputs["existingKeys"][number];
+
+export type GetExistingKeysResponse = Array<ExistingKey>;
+
+export type UserData = NonNullable<UserOutputs["me"]>;
 
 export const userRouter = createTRPCRouter({
   me: publicProcedure.query(async ({ ctx }) => {
@@ -29,9 +38,7 @@ export const userRouter = createTRPCRouter({
       where: (key, { eq }) => eq(key.userId, userId),
     });
 
-    console.log(existingKeys);
-
-    return [];
+    return existingKeys;
   }),
 
   getById: publicProcedure
@@ -56,4 +63,27 @@ export const userRouter = createTRPCRouter({
       })
       .where(eq(users.id, userId));
   }),
+
+  updateMe: protectedProcedure
+    .input(
+      z.object({
+        name: string(),
+        bio: string().optional(),
+        image: string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session?.user.id;
+
+      if (!userId) throw new Error("Unauthorized");
+
+      await ctx.db
+        .update(users)
+        .set({
+          name: input.name,
+          bio: input.bio,
+          image: input.image,
+        })
+        .where(eq(users.id, userId));
+    }),
 });

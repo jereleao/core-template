@@ -50,16 +50,3 @@ export function useWebauthnAssert() {
 
   return [isPending, manuallyStartAuthentication] as const;
 }
-
-/*
-
-fetch('/generate-authentication-options')
-      .then(resp => resp.json())
-      .then((optionsJSON) => {
-        // Note the `useBrowserAutofill: true` argument here
-        startAuthentication({ optionsJSON, useBrowserAutofill: true })
-          .then(authResp => sendToServerForVerificationAndLogin)
-          .catch(err => handleError);
-      });
-
-*/

@@ -28,7 +28,10 @@ export default function UserMenuLanguage() {
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
           {localesOptions.map((localeOption) => (
-            <DropdownMenuItem onSelect={() => onSelectLocale(localeOption)}>
+            <DropdownMenuItem
+              key={localeOption}
+              onSelect={() => onSelectLocale(localeOption)}
+            >
               {t("language.locale", { locale: localeOption })}
             </DropdownMenuItem>
           ))}

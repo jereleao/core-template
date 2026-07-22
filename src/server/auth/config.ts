@@ -134,25 +134,29 @@ export const authConfig = {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user, account, profile, session, trigger }) {
-      // console.log("jwt", { token, user, account, profile, session, trigger });
+    async jwt({ token, user, account, session }) {
 
-      const userData = await db.query.users.findFirst({
-        where: (us, { eq }) => eq(us.id, user?.id || token.sub || token.id),
-      });
+      const resultToken = { ...token };
 
       if (account) {
         token.provider = account.provider;
       }
 
       if (user) {
-        return { ...token, ...user };
+        Object.assign(resultToken, user);
       }
 
-      return token;
+      if (session) {
+        Object.assign(resultToken, session);
+      }
+
+      if (typeof resultToken.image == "string") {
+        resultToken.picture = resultToken.image;
+      }
+
+      return resultToken;
     },
     session({ session, token, user, newSession, trigger }) {
-      // console.log("session", { session, token, user, newSession, trigger });
       return {
         ...session,
         user: {

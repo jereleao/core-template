@@ -11,14 +11,36 @@ import {
   navigationMenuTriggerStyle,
 } from "~/components/ui/navigation-menu";
 import { cn } from "~/utils";
-import { FileText, Plus } from "lucide-react";
+import { FileText, Plus, SquareKanban } from "lucide-react";
+
+const menuList = [
+  {
+    name: "Dashboard",
+    href: "/dashboard",
+    icon: SquareKanban,
+  },
+] as const;
 
 export function MainNav() {
   return (
     <div className="flex min-h-16 w-full items-center justify-center gap-4">
       <NavigationMenu top>
         <NavigationMenuList className="flex w-full justify-center">
-          <NavigationMenuItem>
+          {menuList.map((menu) => {
+            const Icon = menu.icon;
+            return (
+              <NavigationMenuItem key={menu.href}>
+                <NavigationMenuLink
+                  title={menu.name}
+                  href={menu.href}
+                  className={navigationMenuTriggerStyle()}
+                >
+                  <Icon className="size-7" />
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            );
+          })}
+          {/* <NavigationMenuItem>
             <NavigationMenuTrigger className="h-9 px-2.5 py-1.5">
               <FileText className="size-7" />
             </NavigationMenuTrigger>
@@ -32,7 +54,7 @@ export function MainNav() {
                 </ListItem>
               </ul>
             </NavigationMenuContent>
-          </NavigationMenuItem>
+          </NavigationMenuItem> */}
           {/* <NavigationMenuItem>
             <NavigationMenuLink
               href="/operations"
@@ -50,14 +72,14 @@ export function MainNav() {
             </NavigationMenuLink>
           </NavigationMenuItem> */}
 
-          <NavigationMenuItem>
+          {/* <NavigationMenuItem>
             <NavigationMenuLink
-              href="/client-example"
+              href="/dashboard"
               className={navigationMenuTriggerStyle()}
             >
-              Client Side
+              <SquareKanban className="size-7" />
             </NavigationMenuLink>
-          </NavigationMenuItem>
+          </NavigationMenuItem> */}
         </NavigationMenuList>
       </NavigationMenu>
     </div>

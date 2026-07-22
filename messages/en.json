@@ -7,7 +7,10 @@
         "loading": "Loading"
     },
     "HomePage": {
-        "title": "Hello world!"
+        "title": "Home page"
+    },
+    "Dashboard": {
+        "title": "Dashboard"
     },
     "UserMenu": {
         "login": "Login",

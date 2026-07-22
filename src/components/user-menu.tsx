@@ -5,10 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Button } from "~/components/ui/button";
@@ -17,12 +14,10 @@ import type { Session } from "next-auth";
 import { useTransition } from "react";
 import { logoutAction } from "~/server/auth/actions";
 import UserAvatar from "./user-avatar";
-import ConditionGuard from "./condition-guard";
-import { usePasskeyAvailable } from "~/hooks/use-passkey-available";
-import { useWebauthnRegister } from "~/hooks/use-webauthn-register";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import UserMenuLanguage from "~/components/user-menu-language";
+import { LoaderCircle } from "lucide-react";
 
 type UserMenuProps = { session: Session };
 
@@ -33,13 +28,12 @@ export default function UserMenu({ session }: UserMenuProps) {
 
   const t = useTranslations("UserMenu");
 
-  const passkeyAvailable = usePasskeyAvailable();
-
-  const canAuthenticateWithPasskey = passkeyAvailable || false;
-
-  const [isRegistering, handleRegisterPasskey] = useWebauthnRegister();
-
-  if (isLogingOut) return <div>Logging out...</div>;
+  if (isLogingOut)
+    return (
+      <div className="border-foreground flex size-8 items-center justify-center rounded-full border p-0">
+        <LoaderCircle className="animate-spin" />
+      </div>
+    );
 
   return (
     <div className="flex items-center gap-2">
@@ -60,27 +54,11 @@ export default function UserMenu({ session }: UserMenuProps) {
               </p>
             </div>
           </DropdownMenuLabel>
-          <UserMenuLanguage />
-          <DropdownMenuItem>
-            <Link href="./account">{t("account")}</Link>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <Link href="/account">{t("account")}</Link>
           </DropdownMenuItem>
-          <ConditionGuard condition={canAuthenticateWithPasskey}>
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>Authentication</DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <ConditionGuard condition={passkeyAvailable}>
-                    <DropdownMenuItem
-                      onSelect={handleRegisterPasskey}
-                      disabled={isRegistering}
-                    >
-                      Register Passkey
-                    </DropdownMenuItem>
-                  </ConditionGuard>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
-          </ConditionGuard>
+          <UserMenuLanguage />
           <DropdownMenuItem>
             <SignOut handleLogout={handleLogout} />
           </DropdownMenuItem>
