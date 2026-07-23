@@ -7,6 +7,8 @@ import { api } from "~/trpc/server";
 export default async function AccountPage() {
   const userData = await api.user.me();
 
+  console.log("userData: ", userData);
+
   if (!userData) redirect("/login");
 
   return (
