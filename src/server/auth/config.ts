@@ -156,7 +156,7 @@ export const authConfig = {
 
       return resultToken;
     },
-    session({ session, token, user, newSession, trigger }) {
+    session({ session, token }) {
       return {
         ...session,
         user: {

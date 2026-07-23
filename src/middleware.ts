@@ -12,7 +12,6 @@ export async function middleware(request: NextRequest) {
       req: request,
       secret: env.AUTH_SECRET,
     });
-    // console.log("Token in middleware:", token);
 
     // Define protected routes
     const protectedRoutes = ["/dashboard", "/account"];
@@ -33,6 +32,7 @@ export async function middleware(request: NextRequest) {
 
     return NextResponse.next();
   } catch (error) {
+    console.debug("TODO: Redirerect to a error page")
     console.error("Middleware error:", error);
     return NextResponse.redirect(new URL("/login", request.url));
   }

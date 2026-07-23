@@ -16,6 +16,7 @@ const coreConfig = {
 };
 
 import { withSentryConfig } from "@sentry/nextjs";
+import { env } from "~/env.js";
 
 const configWithSentry = withSentryConfig(coreConfig, {
   // For all available options, see:
@@ -49,6 +50,8 @@ const configWithSentry = withSentryConfig(coreConfig, {
   automaticVercelMonitors: true,
 })
 
+const finalConfig = env.NODE_ENV == 'production' ? configWithSentry : coreConfig;
+
 const withNextIntl = createNextIntlPlugin();
 
-export default withNextIntl(configWithSentry);
+export default withNextIntl(finalConfig);
