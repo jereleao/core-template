@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { Skeleton } from "~/components/ui/skeleton";
+import { Skeleton, skeletonClasses } from "~/components/ui/skeleton";
 import {
   Field,
   FieldContent,
@@ -8,6 +8,7 @@ import {
   FieldLabel,
   FieldSet,
 } from "~/components/ui/field";
+import { cn } from "~/utils";
 
 const FormInputSkeleton = () => {
   return (
@@ -50,7 +51,7 @@ export default async function LoadingAccountPage() {
         <div className="flex w-full flex-col-reverse md:flex-row">
           <FieldSet className="w-full max-w-lg pt-2">
             <FieldDescription className="flex h-5 items-center">
-              <Skeleton className="h-3 w-44" />
+              <span className={cn(skeletonClasses, "h-3 w-44")} />
             </FieldDescription>
             <FieldGroup>
               <FormInputSkeleton />

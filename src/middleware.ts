@@ -7,12 +7,14 @@ export async function middleware(request: NextRequest) {
 
   const url = request.nextUrl.clone();
 
+  const isProd = env.NODE_ENV === "production";
+
   try {
     const token = await getToken({
       req: request,
       secret: env.AUTH_SECRET,
+      cookieName: `${isProd ? "__Secure-" : ""}authjs.session-token`,
     });
-    // console.log("Token in middleware:", token);
 
     // Define protected routes
     const protectedRoutes = ["/dashboard", "/account"];
@@ -27,12 +29,15 @@ export async function middleware(request: NextRequest) {
     }
 
     if (!token) {
+      console.info("Redirected in the middleware, reason: missing token");
+
       url.pathname = "/login";
       return NextResponse.redirect(url);
     }
 
     return NextResponse.next();
   } catch (error) {
+    console.debug("TODO: Redirerect to a error page");
     console.error("Middleware error:", error);
     return NextResponse.redirect(new URL("/login", request.url));
   }
