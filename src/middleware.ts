@@ -12,6 +12,7 @@ export async function middleware(request: NextRequest) {
       req: request,
       secret: env.AUTH_SECRET,
     });
+    console.log("User token: ", token?.id);
 
     // Define protected routes
     const protectedRoutes = ["/dashboard", "/account"];
