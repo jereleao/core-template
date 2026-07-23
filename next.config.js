@@ -16,7 +16,7 @@ const coreConfig = {
 };
 
 import { withSentryConfig } from "@sentry/nextjs";
-import { env } from "~/env.js";
+import { env } from "./src/env.js";
 
 const configWithSentry = withSentryConfig(coreConfig, {
   // For all available options, see:
