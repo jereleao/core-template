@@ -7,23 +7,14 @@ export async function middleware(request: NextRequest) {
 
   const url = request.nextUrl.clone();
 
+  const isProd = env.NODE_ENV === "production";
+
   try {
     const token = await getToken({
       req: request,
       secret: env.AUTH_SECRET,
-      cookieName:
-        env.NODE_ENV === "production"
-          ? "__Secure-authjs.session-token"
-          : "authjs.session-token",
+      cookieName: `${isProd ? "__Secure-" : ""}authjs.session-token`,
     });
-    console.log("env.NODE_ENV: ", env.NODE_ENV);
-    console.log("User token: ", token);
-    console.log("AUTH_SECRET: ", env.AUTH_SECRET);
-    const headers =
-      request.headers instanceof Headers
-        ? request.headers
-        : new Headers(request.headers);
-    console.log("Cookie: ", headers.get("cookie"));
 
     // Define protected routes
     const protectedRoutes = ["/dashboard", "/account"];
@@ -46,7 +37,7 @@ export async function middleware(request: NextRequest) {
 
     return NextResponse.next();
   } catch (error) {
-    console.debug("TODO: Redirerect to a error page")
+    console.debug("TODO: Redirerect to a error page");
     console.error("Middleware error:", error);
     return NextResponse.redirect(new URL("/login", request.url));
   }
