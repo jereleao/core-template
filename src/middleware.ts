@@ -26,6 +26,8 @@ export async function middleware(request: NextRequest) {
     }
 
     if (!token) {
+      console.info("Redirected in the middleware, reason: missing token");
+
       url.pathname = "/login";
       return NextResponse.redirect(url);
     }
