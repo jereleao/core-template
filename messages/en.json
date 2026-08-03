@@ -19,6 +19,12 @@
             "label": "Change language",
             "locale": "{locale, select, pt {🇵🇹 Portuguese} en {🇺🇸 English} other {Unknown}}"
         },
+        "theme": {
+            "label": "Change theme",
+            "light": "Light",
+            "dark": "Dark",
+            "system": "System"
+        },
         "logout": "Logout"
     }
 }

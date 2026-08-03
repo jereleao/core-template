@@ -134,7 +134,8 @@ export const authConfig = {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user, account, session }) {
+    async jwt({ token, user, account, profile, session, trigger }) {
+      // console.log("jwt", { token, user, account, profile, session, trigger });
 
       const resultToken = { ...token };
 
@@ -156,7 +157,8 @@ export const authConfig = {
 
       return resultToken;
     },
-    session({ session, token }) {
+    session({ session, token, user, newSession, trigger }) {
+      // console.log("session", { session, token, user, newSession, trigger });
       return {
         ...session,
         user: {
