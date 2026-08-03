@@ -24,9 +24,33 @@ export async function middleware(request: NextRequest) {
       url.pathname.startsWith(route),
     );
 
+    // Check if 2FA is required but not verified
+    // const requires2FA = token?.requiresTwoFactor === true;
+
+    // // Skip middleware for the verify-2fa page and its API
+    // if (
+    //   url.pathname === "/verify-2fa" ||
+    //   url.pathname === "/api/auth/verify-2fa"
+    // ) {
+    //   return NextResponse.next();
+    // }
+
+    // // If 2FA is required, redirect to verification page
+    // if (token && requires2FA && url.pathname !== "/verify-2fa") {
+    //   return NextResponse.redirect(new URL("/verify-2fa", request.url));
+    // }
+
     if (!isProtectedRoute) {
       return NextResponse.next();
     }
+
+    // console.log(
+    //   "Requested path:",
+    //   url.pathname,
+    //   "is protected route:",
+    //   isProtectedRoute,
+    // );
+    // console.log("User token:", token);
 
     if (!token) {
       console.info("Redirected in the middleware, reason: missing token");

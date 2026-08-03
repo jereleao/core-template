@@ -1,5 +1,10 @@
 "use client";
 
+import Link from "next/link";
+import { useTransition } from "react";
+import type { Session } from "next-auth";
+import { useTranslations } from "next-intl";
+import { LoaderCircle } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,14 +15,10 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { Button } from "~/components/ui/button";
 import { SignOut } from "~/components/auth-component";
-import type { Session } from "next-auth";
-import { useTransition } from "react";
 import { logoutAction } from "~/server/auth/actions";
-import UserAvatar from "./user-avatar";
-import { useTranslations } from "next-intl";
-import Link from "next/link";
+import UserAvatar from "~/components/user-avatar";
 import UserMenuLanguage from "~/components/user-menu-language";
-import { LoaderCircle } from "lucide-react";
+import UserMenuTheme from "~/components/user-menu-theme";
 
 type UserMenuProps = { session: Session };
 
@@ -59,6 +60,7 @@ export default function UserMenu({ session }: UserMenuProps) {
             <Link href="/account">{t("account")}</Link>
           </DropdownMenuItem>
           <UserMenuLanguage />
+          <UserMenuTheme />
           <DropdownMenuItem>
             <SignOut handleLogout={handleLogout} />
           </DropdownMenuItem>

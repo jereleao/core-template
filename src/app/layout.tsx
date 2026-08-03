@@ -8,6 +8,7 @@ import { cn } from "~/utils";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "~/components/ui/sonner";
+import { ThemeProvider } from "~/components/theme-provider";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -38,24 +39,22 @@ export default function RootLayout({
     >
       <body>
         <TRPCReactProvider>
-          {/* <ThemeProvider
+          <ThemeProvider
             attribute="class"
-            defaultTheme={themeToUse}
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-          > */}
-          <NextIntlClientProvider>
-            {/* <ClientProvider> */}
-            <SessionProvider>
-              {/* <TooltipProvider> */}
-              {children}
-              {modal}
-              <div id="modal-root" />
-              {/* </TooltipProvider> */}
-            </SessionProvider>
-            {/* </ClientProvider> */}
-          </NextIntlClientProvider>
-          {/* </ThemeProvider> */}
+          >
+            <NextIntlClientProvider>
+              <SessionProvider>
+                {/* <TooltipProvider> */}
+                {children}
+                {modal}
+                <div id="modal-root" />
+                {/* </TooltipProvider> */}
+              </SessionProvider>
+            </NextIntlClientProvider>
+          </ThemeProvider>
         </TRPCReactProvider>
         <Toaster />
       </body>
