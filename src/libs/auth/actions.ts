@@ -2,12 +2,12 @@
 import { verifyAuthenticationResponse } from "@simplewebauthn/server";
 import { isoBase64URL } from "@simplewebauthn/server/helpers";
 import { env, PASSKEY_PROVIDER_ID } from "~/env";
-import { signIn, signOut } from "~/server/auth";
-import { db } from "~/server/db";
-import { storedCredentials } from "~/server/db/schema";
+import { signIn, signOut } from "~/libs/auth";
+import { db } from "~/libs/db";
+import { storedCredentials } from "~/libs/db/schema";
 import { getNow } from "~/utils";
 import { eq } from "drizzle-orm";
-import { rpId } from "~/server/auth/config";
+import { rpId } from "~/libs/auth/config";
 
 export async function logoutAction() {
   await signOut();

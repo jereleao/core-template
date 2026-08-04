@@ -1,5 +1,5 @@
-import { postRouter } from "~/server/api/routers/post";
-import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
+import { postRouter } from "~/libs/api/routers/post";
+import { createCallerFactory, createTRPCRouter } from "~/libs/api/trpc";
 import { userRouter } from "./routers/user";
 import { webauthnRouter } from "./routers/webauthn";
 

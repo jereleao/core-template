@@ -2,15 +2,15 @@ import { z } from "zod";
 import { verifyRegistrationResponse } from "@simplewebauthn/server";
 import { isoBase64URL } from "@simplewebauthn/server/helpers";
 import { env } from "~/env";
+import { storedCredentials } from "~/libs/db/schema";
+import { rpId } from "~/libs/auth/config";
+import { getNow } from "~/utils";
+import { eq } from "drizzle-orm";
 import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
-} from "~/server/api/trpc";
-import { storedCredentials } from "~/server/db/schema";
-import { rpId } from "~/server/auth/config";
-import { getNow } from "~/utils";
-import { eq } from "drizzle-orm";
+} from "~/libs/api/trpc";
 
 export const webauthnRouter = createTRPCRouter({
   makeCredentialOptions: protectedProcedure.query(async ({ ctx }) => {

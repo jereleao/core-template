@@ -7,13 +7,13 @@ import NodemailerProvider from "next-auth/providers/nodemailer";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { env, PASSKEY_PROVIDER_ID } from "~/env";
 
-import { db } from "~/server/db";
+import { db } from "~/libs/db";
 import {
   accounts,
   sessions,
   users,
   verificationTokens,
-} from "~/server/db/schema";
+} from "~/libs/db/schema";
 import { eq } from "drizzle-orm";
 
 declare module "next-auth/jwt" {

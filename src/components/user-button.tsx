@@ -1,4 +1,4 @@
-import { auth } from "~/server/auth";
+import { auth } from "~/libs/auth";
 import { SignIn } from "~/components/auth-component";
 import UserMenu from "~/components/user-menu";
 

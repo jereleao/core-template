@@ -4,9 +4,9 @@ import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
-} from "~/server/api/trpc";
-import { auth } from "~/server/auth";
-import { posts } from "~/server/db/schema";
+} from "~/libs/api/trpc";
+import { auth } from "~/libs/auth";
+import { posts } from "~/libs/db/schema";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure

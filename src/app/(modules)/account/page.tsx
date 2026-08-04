@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { UserProfileEdit } from "./_components/profile/user-profile-edit";
 import PasskeyPreferences from "./_components/passkeys/passkey-preferences";
-import { api } from "~/trpc/server";
+import { api } from "~/libs/trpc/server";
 
 export default async function AccountPage() {
   const userData = await api.user.me();

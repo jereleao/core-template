@@ -6,7 +6,7 @@ import ConditionGuard from "~/components/condition-guard";
 import { usePasskeyAvailable } from "~/hooks/use-passkey-available";
 import { useWebauthnRegister } from "~/hooks/use-webauthn-register";
 import { FingerprintPattern, LoaderCircle } from "lucide-react";
-import { api } from "~/trpc/react";
+import { api } from "~/libs/trpc/react";
 import { CredentialCard } from "./credential-card";
 import {
   CredentialArraySkeleton,

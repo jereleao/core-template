@@ -3,7 +3,7 @@ import "~/styles/globals.css";
 import { type Metadata } from "next";
 import { Geist, Roboto } from "next/font/google";
 
-import { TRPCReactProvider } from "~/trpc/react";
+import { TRPCReactProvider } from "~/libs/trpc/react";
 import { cn } from "~/utils";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";

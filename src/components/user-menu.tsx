@@ -15,7 +15,7 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { Button } from "~/components/ui/button";
 import { SignOut } from "~/components/auth-component";
-import { logoutAction } from "~/server/auth/actions";
+import { logoutAction } from "~/libs/auth/actions";
 import UserAvatar from "~/components/user-avatar";
 import UserMenuLanguage from "~/components/user-menu-language";
 import UserMenuTheme from "~/components/user-menu-theme";

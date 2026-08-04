@@ -1,6 +1,6 @@
 "use client";
 
-import { api } from "~/trpc/react";
+import { api } from "~/libs/trpc/react";
 import { toast } from "sonner";
 import { useUserAgentData } from "./use-user-agent-data";
 import { startRegistration } from "@simplewebauthn/browser";

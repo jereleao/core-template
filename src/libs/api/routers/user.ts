@@ -5,8 +5,8 @@ import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
-} from "~/server/api/trpc";
-import { users } from "~/server/db/schema";
+} from "~/libs/api/trpc";
+import { users } from "~/libs/db/schema";
 
 type UserOutputs = inferRouterOutputs<typeof userRouter>;
 

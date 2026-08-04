@@ -9,8 +9,8 @@ import { useState, useTransition } from "react";
 import { ImageCropper } from "./image-cropper";
 import { uploadFile } from "../../_actions/put-file";
 import { urlToFile } from "~/utils";
-import { api } from "~/trpc/react";
-import type { UserData } from "~/server/api/routers/user";
+import { api } from "~/libs/trpc/react";
+import type { UserData } from "~/libs/api/routers/user";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 

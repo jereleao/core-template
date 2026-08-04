@@ -2,7 +2,7 @@
 
 import { Button } from "~/components/ui/button";
 import Link from "next/link";
-import { logoutAction } from "~/server/auth/actions";
+import { logoutAction } from "~/libs/auth/actions";
 import { useEffect, useTransition } from "react";
 import { useTranslations } from "next-intl";
 

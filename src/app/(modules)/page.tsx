@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 import { LatestPost } from "~/app/_components/post";
-import { auth } from "~/server/auth";
-import { api, HydrateClient } from "~/trpc/server";
+import { auth } from "~/libs/auth";
+import { api, HydrateClient } from "~/libs/trpc/server";
 import PasskeyAvailability from "../_components/passkey-availability";
 import { getTranslations } from "next-intl/server";
 

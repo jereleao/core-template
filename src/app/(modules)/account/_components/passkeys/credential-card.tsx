@@ -23,8 +23,8 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { dateOptionsWithTime } from "~/libs/i18n/locale-options";
-import type { ExistingKey } from "~/server/api/routers/user";
-import { api } from "~/trpc/react";
+import type { ExistingKey } from "~/libs/api/routers/user";
+import { api } from "~/libs/trpc/react";
 import { DetailRow } from "./detail-row";
 
 type CredentialCardProps = {

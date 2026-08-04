@@ -15,7 +15,7 @@ import { PASSKEY_PROVIDER_ID } from "~/env";
 import { usePasskeyAvailable } from "~/hooks/use-passkey-available";
 import { usePasskeyPromptDismissed } from "~/hooks/use-passkey-prompt-dismissed";
 import { useWebauthnRegister } from "~/hooks/use-webauthn-register";
-import { api } from "~/trpc/react";
+import { api } from "~/libs/trpc/react";
 
 export default function PasskeyAvailability() {
   const passkeyAvailable = usePasskeyAvailable();

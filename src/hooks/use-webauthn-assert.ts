@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 
-import { api } from "~/trpc/react";
+import { api } from "~/libs/trpc/react";
 import { useRouter } from "next/navigation";
-import { loginWithPasskey } from "~/server/auth/actions";
+import { loginWithPasskey } from "~/libs/auth/actions";
 import { useSession } from "next-auth/react";
 import { startAuthentication } from "@simplewebauthn/browser";
 
