@@ -3,7 +3,7 @@
         "title": "Demo App",
         "description": "A application with Auth.js and 2FA support"
     },
-    "Commom": {
+    "Common": {
         "loading": "Loading"
     },
     "HomePage": {
@@ -11,6 +11,19 @@
     },
     "Dashboard": {
         "title": "Dashboard"
+    },
+    "LoginPage": {
+        "title": "Login",
+        "description": "Choose one of the options below to log in.",
+        "google": "Login with Google",
+        "passkey": "Login with Passkey",
+        "or": "or",
+        "email": {
+            "label": "Email address",
+            "send": "Login with Email",
+            "sending": "Sending...",
+            "sent": "Check your inbox for the login link."
+        }
     },
     "UserMenu": {
         "login": "Login",

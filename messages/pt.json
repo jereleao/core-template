@@ -3,7 +3,7 @@
         "title": "Demo App",
         "description": "Uma aplicação com Auth.js e suporte 2FA"
     },
-    "Commom": {
+    "Common": {
         "loading": "Carregando"
     },
     "HomePage": {
@@ -12,13 +12,32 @@
     "Dashboard": {
         "title": "Painel"
     },
+    "LoginPage": {
+        "title": "Entrar",
+        "description": "Escolha uma das opções abaixo para fazer login.",
+        "google": "Entrar com Google",
+        "passkey": "Entrar com Passkey",
+        "or": "ou",
+        "email": {
+            "label": "Endereço de email",
+            "send": "Entrar com Email",
+            "sending": "Enviando...",
+            "sent": "Verifique sua caixa de entrada para o link de login."
+        }
+    },
     "UserMenu": {
-        "login": "Login",
+        "login": "Entrar",
         "account": "Minha Conta",
         "language": {
             "label": "Alterar idioma",
             "locale": "{locale, select, pt {🇵🇹 Português} en {🇺🇸 Inglês} other {Unknown}}"
         },
-        "logout": "Logout"
+        "theme": {
+            "label": "Alterar tema",
+            "light": "Claro",
+            "dark": "Escuro",
+            "system": "Sistema"
+        },
+        "logout": "Sair"
     }
 }

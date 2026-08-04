@@ -1,19 +1,22 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
+import { FingerprintPattern, LoaderCircle } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { Button } from "~/components/ui/button";
 import { GoogleIcon } from "~/components/icons";
 import { Input } from "~/components/ui/input";
 import { Field, FieldLabel } from "~/components/ui/field";
-import { useWebauthnAssert } from "~/hooks/use-webauthn-assert";
 import ConditionGuard from "~/components/condition-guard";
-import { FingerprintPattern, LoaderCircle } from "lucide-react";
 import { usePasskeyAvailable } from "~/hooks/use-passkey-available";
+import { useWebauthnAssert } from "~/hooks/use-webauthn-assert";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [emailSent, setEmailSent] = useState(false);
+
+  const t = useTranslations("LoginPage");
 
   const passkeyAvailable = usePasskeyAvailable();
 
@@ -43,9 +46,9 @@ export default function LoginForm() {
 
   return (
     <div className="bg-background border-border w-full max-w-xl rounded-3xl border p-10 shadow-2xl">
-      <h1 className="text-center text-4xl font-semibold">Sign in</h1>
+      <h1 className="text-center text-4xl font-semibold">{t("title")}</h1>
       <p className="text-muted-foreground mt-4 text-center">
-        Choose one of the options below to sign in.
+        {t("description")}
       </p>
 
       <div className="mt-10 flex flex-col gap-4">
@@ -56,7 +59,7 @@ export default function LoginForm() {
             onClick={() => signIn("google", { callbackUrl: "/" })}
           >
             <GoogleIcon className="mr-2" />
-            <span>Sign in with Google</span>
+            <span>{t("google")}</span>
           </Button>
           <ConditionGuard condition={passkeyAvailable}>
             <Button
@@ -71,18 +74,18 @@ export default function LoginForm() {
               >
                 <FingerprintPattern className="mr-2" />
               </ConditionGuard>
-              <span>Sign in with Passkey</span>
+              <span>{t("passkey")}</span>
             </Button>
           </ConditionGuard>
         </div>
 
         <div className="border-border text-muted-foreground relative w-full border-t py-4 text-center text-sm">
-          <span className="bg-background px-3">or</span>
+          <span className="bg-background px-3">{t("or")}</span>
         </div>
 
         <form onSubmit={handleEmailSubmit} className="flex flex-col gap-4">
           <Field>
-            <FieldLabel htmlFor="email">Email address</FieldLabel>
+            <FieldLabel htmlFor="email">{t("email.label")}</FieldLabel>
             <Input
               id="email"
               type="email"
@@ -96,13 +99,13 @@ export default function LoginForm() {
             />
           </Field>
           <Button type="submit" className="py-6" disabled={isPending}>
-            {isPending ? "Sending..." : "Sign in with email"}
+            {isPending ? t("email.sending") : t("email.send")}
           </Button>
         </form>
 
         {emailSent && (
           <div className="border-border/20 bg-muted/10 text-foreground rounded-2xl border p-4 text-center text-sm">
-            Check your inbox for a sign-in link.
+            {t("email.sent")}
           </div>
         )}
       </div>

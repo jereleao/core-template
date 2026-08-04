@@ -1,10 +1,9 @@
 import Link from "next/link";
 
-import { LatestPost } from "~/app/_components/post";
+import { getTranslations } from "next-intl/server";
 import { auth } from "~/libs/auth";
 import { api, HydrateClient } from "~/libs/trpc/server";
-import PasskeyAvailability from "../_components/passkey-availability";
-import { getTranslations } from "next-intl/server";
+import PasskeyAvailability from "~/components/passkey-availability";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
@@ -35,8 +34,6 @@ export default async function Home() {
           <p className="text-2xl text-white">
             {hello ? hello.greeting : "Loading tRPC query..."}
           </p>
-
-          <PasskeyAvailability />
 
           <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-center text-2xl text-white">
