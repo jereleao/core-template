@@ -7,10 +7,10 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from "~/components/ui/dropdown-menu";
-import { localesOptions } from "~/i18n/locale-options";
 import { useLocale, useTranslations } from "next-intl";
 import type { Locale } from "next-intl";
-import { changeLocaleAction } from "~/i18n/locale-action";
+import { localesOptions } from "~/libs/i18n/locale-options";
+import { changeLocaleAction } from "~/libs/i18n/locale-action";
 
 export default function UserMenuLanguage() {
   const t = useTranslations("UserMenu");

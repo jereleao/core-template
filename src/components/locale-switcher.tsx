@@ -1,8 +1,8 @@
 "use client";
 
 import { type Locale, useLocale } from "next-intl";
-import { changeLocaleAction } from "~/i18n/locale-action";
-import { localesOptions } from "~/i18n/locale-options";
+import { changeLocaleAction } from "~/libs/i18n/locale-action";
+import { localesOptions } from "~/libs/i18n/locale-options";
 
 export default function LocaleSwitcher() {
   const locale = useLocale();

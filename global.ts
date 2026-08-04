@@ -1,4 +1,4 @@
-import type { localesOptions } from "~/i18n/locale-options";
+import type { localesOptions } from "~/libs/i18n/locale-options";
 import messages from "./messages/en.json";
 
 declare module "*.css";

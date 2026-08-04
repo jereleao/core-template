@@ -22,7 +22,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { dateOptionsWithTime } from "~/i18n/locale-options";
+import { dateOptionsWithTime } from "~/libs/i18n/locale-options";
 import type { ExistingKey } from "~/server/api/routers/user";
 import { api } from "~/trpc/react";
 import { DetailRow } from "./detail-row";
