@@ -7,7 +7,7 @@
         "loading": "Loading"
     },
     "HomePage": {
-        "title": "Home page"
+        "title": "Home Page"
     },
     "Dashboard": {
         "title": "Dashboard"
@@ -29,7 +29,7 @@
         "login": "Login",
         "account": "My Account",
         "language": {
-            "label": "Change language",
+            "label": "Change Language",
             "locale": "{locale, select, pt {🇵🇹 Portuguese} en {🇺🇸 English} other {Unknown}}"
         },
         "theme": {

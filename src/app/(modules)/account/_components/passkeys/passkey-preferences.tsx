@@ -8,10 +8,7 @@ import { useWebauthnRegister } from "~/hooks/use-webauthn-register";
 import { FingerprintPattern, LoaderCircle } from "lucide-react";
 import { api } from "~/libs/trpc/react";
 import { CredentialCard } from "./credential-card";
-import {
-  CredentialArraySkeleton,
-  CredentialCardSkeleton,
-} from "./credential-card-skeleton";
+import { CredentialArraySkeleton } from "./credential-card-skeleton";
 
 export default function PasskeyPreferences() {
   const passkeyAvailable = usePasskeyAvailable();
