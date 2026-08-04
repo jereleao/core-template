@@ -52,6 +52,6 @@ const configWithSentry = withSentryConfig(coreConfig, {
 
 const finalConfig = env.NODE_ENV == 'production' ? configWithSentry : coreConfig;
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin('./src/libs/i18n/request.ts');
 
 export default withNextIntl(finalConfig);
